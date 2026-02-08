@@ -57,7 +57,7 @@
     <p id="stepText">Think of your birth MONTH. Multiply it by 5.</p>
 
     <div>
-        <button onclick="prevStep()">⬅ Back</button>
+        <button id="backBtn" onclick="prevStep()" style="display:none;">⬅ Back</button>
         <button onclick="nextStep()">Next ➡</button>
     </div>
 
@@ -72,7 +72,7 @@
 </div>
 
 <script>
-let step = -1;
+let step = 0;
 
 const steps = [
     "Think of your birth MONTH. Multiply it by 5.",
@@ -90,6 +90,11 @@ function nextStep() {
         document.getElementById("stepText").innerText = steps[step];
     }
 
+    // Show back button after first step
+    if (step > 0) {
+        document.getElementById("backBtn").style.display = "inline-block";
+    }
+
     if (step === steps.length - 1) {
         document.getElementById("inputArea").style.display = "block";
     }
@@ -101,9 +106,12 @@ function prevStep() {
         document.getElementById("stepText").innerText = steps[step];
     }
 
-    if (step < steps.length - 1) {
-        document.getElementById("inputArea").style.display = "none";
+    // Hide back button if at first step
+    if (step === 0) {
+        document.getElementById("backBtn").style.display = "none";
     }
+
+    document.getElementById("inputArea").style.display = "none";
 }
 
 function reveal() {
@@ -123,12 +131,13 @@ function reveal() {
 }
 
 function goHome() {
-    step = -1;
+    step = 0;
     document.getElementById("stepText").innerText = steps[0];
     document.getElementById("inputArea").style.display = "none";
     document.getElementById("result").innerText = "";
     document.getElementById("finalNumber").value = "";
     document.getElementById("homeBtn").style.display = "none";
+    document.getElementById("backBtn").style.display = "none";
 }
 </script>
 
