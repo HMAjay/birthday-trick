@@ -65,6 +65,8 @@
     </div>
 
     <h3 id="result"></h3>
+
+    <button id="homeBtn" onclick="goHome()" style="display:none;">⬅ Go Back to Start</button>
 </div>
 
 <script>
@@ -100,6 +102,19 @@ function reveal() {
 
     document.getElementById("result").innerText =
         `🎉 You were born on ${day} ${months[month-1]}!`;
+
+    document.getElementById("homeBtn").style.display = "inline-block";
+}
+
+function goHome() {
+    step = 0;
+    document.getElementById("stepText").innerText =
+        "Think of your birth MONTH. Multiply it by 5.";
+
+    document.getElementById("inputArea").style.display = "none";
+    document.getElementById("result").innerText = "";
+    document.getElementById("finalNumber").value = "";
+    document.getElementById("homeBtn").style.display = "none";
 }
 </script>
 
