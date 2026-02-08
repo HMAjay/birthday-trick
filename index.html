@@ -116,19 +116,39 @@ function prevStep() {
 
 function reveal() {
     let num = Number(document.getElementById("finalNumber").value);
-    let original = num - 165;
 
+    if (!num) {
+        document.getElementById("result").innerText = "Enter a number first!";
+        return;
+    }
+
+    let original = num - 165;
     let month = Math.floor(original / 100);
     let day = original % 100;
 
     const months = ["January","February","March","April","May","June",
                     "July","August","September","October","November","December"];
 
+    // Check month range
+    if (month < 1 || month > 12) {
+        document.getElementById("result").innerText = "Your math is weak 😅 Try again.";
+        return;
+    }
+
+    // Check valid day for that month using JS Date
+    let testDate = new Date(2024, month - 1, day); // 2024 = leap year for Feb 29 safety
+
+    if (testDate.getMonth() !== month - 1 || testDate.getDate() !== day) {
+        document.getElementById("result").innerText = "Your math is weak 😅 Try again.";
+        return;
+    }
+
     document.getElementById("result").innerText =
         `🎉 You were born on ${day} ${months[month-1]}!`;
 
     document.getElementById("homeBtn").style.display = "inline-block";
 }
+
 
 function goHome() {
     step = 0;
