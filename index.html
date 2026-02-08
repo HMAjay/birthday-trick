@@ -24,7 +24,7 @@
         }
 
         button {
-            margin-top: 15px;
+            margin: 8px 5px;
             padding: 10px 15px;
             border-radius: 8px;
             border: none;
@@ -56,7 +56,10 @@
     <h2>🔮 Mind Reader</h2>
     <p id="stepText">Think of your birth MONTH. Multiply it by 5.</p>
 
-    <button onclick="nextStep()">Next Step</button>
+    <div>
+        <button onclick="prevStep()">⬅ Back</button>
+        <button onclick="nextStep()">Next ➡</button>
+    </div>
 
     <div id="inputArea" style="display:none;">
         <p>Enter your final number:</p>
@@ -65,13 +68,14 @@
     </div>
 
     <h3 id="result"></h3>
-
-    <button id="homeBtn" onclick="goHome()" style="display:none;">⬅ Go Back to Start</button>
+    <button id="homeBtn" onclick="goHome()" style="display:none;">🏠 Restart</button>
 </div>
 
 <script>
-let step = 0;
+let step = -1;
+
 const steps = [
+    "Think of your birth MONTH. Multiply it by 5.",
     "Now add 6.",
     "Multiply the result by 4.",
     "Add 9.",
@@ -82,11 +86,23 @@ const steps = [
 
 function nextStep() {
     if (step < steps.length - 1) {
-        document.getElementById("stepText").innerText = steps[step];
         step++;
-    } else {
         document.getElementById("stepText").innerText = steps[step];
+    }
+
+    if (step === steps.length - 1) {
         document.getElementById("inputArea").style.display = "block";
+    }
+}
+
+function prevStep() {
+    if (step > 0) {
+        step--;
+        document.getElementById("stepText").innerText = steps[step];
+    }
+
+    if (step < steps.length - 1) {
+        document.getElementById("inputArea").style.display = "none";
     }
 }
 
@@ -107,10 +123,8 @@ function reveal() {
 }
 
 function goHome() {
-    step = 0;
-    document.getElementById("stepText").innerText =
-        "Think of your birth MONTH. Multiply it by 5.";
-
+    step = -1;
+    document.getElementById("stepText").innerText = steps[0];
     document.getElementById("inputArea").style.display = "none";
     document.getElementById("result").innerText = "";
     document.getElementById("finalNumber").value = "";
