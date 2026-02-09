@@ -97,18 +97,16 @@ function startYearTrick() {
 function goHome() {
     step = 0;
 
-    const steps = mode === "birthday" ? birthdaySteps : yearSteps;
-    document.getElementById("stepText").innerText = steps[0];
+    if (mode === "birthday") {
+        document.getElementById("stepText").innerText = birthdaySteps[0];
+        document.getElementById("yearBtn").style.display = "none";
+    } else {
+        document.getElementById("stepText").innerText = yearSteps[0];
+    }
 
     document.getElementById("inputArea").style.display = "none";
     document.getElementById("result").innerText = "";
     document.getElementById("finalNumber").value = "";
     document.getElementById("homeBtn").style.display = "none";
     document.getElementById("backBtn").style.display = "none";
-
-    // Only show year button again if we're in birthday mode
-    if (mode === "birthday") {
-        document.getElementById("yearBtn").style.display = "none";
-    }
 }
-
