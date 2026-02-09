@@ -14,6 +14,7 @@ const birthdaySteps = [
     "Done! Enter the final number below."
 ];
 
+// 🔥 Updated — no current year step
 const yearSteps = [
     "Think of your CURRENT AGE. Multiply it by 2.",
     "Now add 5.",
@@ -24,25 +25,39 @@ const yearSteps = [
 
 function nextStep() {
     const steps = mode === "birthday" ? birthdaySteps : yearSteps;
+
     if (step < steps.length - 1) {
         step++;
         document.getElementById("stepText").innerText = steps[step];
     }
+
     if (step > 0) document.getElementById("backBtn").style.display = "inline-block";
-    if (step === steps.length - 1) document.getElementById("inputArea").style.display = "block";
+
+    if (step === steps.length - 1) {
+        document.getElementById("inputArea").style.display = "block";
+
+        const input = document.getElementById("finalNumber");
+        input.value = "";
+        input.focus(); // 🔥 auto focus
+    }
 }
 
 function prevStep() {
     if (step > 0) step--;
     const steps = mode === "birthday" ? birthdaySteps : yearSteps;
     document.getElementById("stepText").innerText = steps[step];
+
     if (step === 0) document.getElementById("backBtn").style.display = "none";
+
     document.getElementById("inputArea").style.display = "none";
+    document.getElementById("finalNumber").value = ""; // clear
 }
 
 function reveal() {
     let num = Number(document.getElementById("finalNumber").value);
     if (!num) return;
+
+    document.getElementById("finalNumber").blur(); // hide keyboard mobile
 
     if (mode === "birthday") {
         let original = num - 165;
@@ -54,7 +69,7 @@ function reveal() {
 
         let testDate = new Date(2024, month - 1, day);
         if (month < 1 || month > 12 || testDate.getMonth() !== month - 1 || testDate.getDate() !== day) {
-            document.getElementById("result").innerHTML = "Not correct? Try again 🤣";
+            document.getElementById("result").innerHTML = "Your math is weak 😭 Try again.";
             document.getElementById("homeBtn").style.display = "inline-block";
             return;
         }
@@ -67,12 +82,14 @@ function reveal() {
 
         document.getElementById("yearBtn").style.display = "inline-block";
         fireConfetti();
+
     } else {
+        // 🔥 Corrected formula
         let age = Math.floor((num - 500) / 100);
         let birthYear = currentYear - age;
 
         if (birthYear < 1950 || birthYear > currentYear) {
-            document.getElementById("result").innerHTML = "Not correct? Try again 🤣";
+            document.getElementById("result").innerHTML = "Your math is weak 😭 Try again.";
             document.getElementById("homeBtn").style.display = "inline-block";
             return;
         }
@@ -90,30 +107,47 @@ function reveal() {
 function startYearTrick() {
     mode = "year";
     step = 0;
+
     document.getElementById("titleText").innerText = "🔮 Watch Me Guess Your Birth Year";
     document.getElementById("stepText").innerText = yearSteps[0];
+
     document.getElementById("inputArea").style.display = "none";
     document.getElementById("result").innerText = "";
     document.getElementById("homeBtn").style.display = "none";
+    document.getElementById("finalNumber").value = ""; // clear
 }
 
 function goHome() {
     step = 0;
-    document.getElementById("titleText").innerText =
-        mode === "birthday" ? "🔮 Watch Me Guess Your Birthday" : "Watch Me Guess Your Birth Year";
-    document.getElementById("stepText").innerText =
-        mode === "birthday" ? birthdaySteps[0] : yearSteps[0];
+    mode = "birthday";
+
+    document.getElementById("titleText").innerText = "🔮 Watch Me Guess Your Birthday";
+    document.getElementById("stepText").innerText = birthdaySteps[0];
+
     document.getElementById("result").innerText = "";
     document.getElementById("inputArea").style.display = "none";
     document.getElementById("homeBtn").style.display = "none";
+    document.getElementById("finalNumber").value = ""; // clear
 }
 
 function fireConfetti() {
     const duration = 2000;
     const end = Date.now() + duration;
+
     (function frame() {
         confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 } });
         confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 } });
         if (Date.now() < end) requestAnimationFrame(frame);
     })();
 }
+
+
+// 🔥 ENTER KEY SUBMIT
+document.getElementById("finalNumber").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") reveal();
+});
+
+// 🔥 NUMBERS ONLY
+document.getElementById("finalNumber").addEventListener("input", function () {
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
