@@ -68,7 +68,7 @@ function reveal() {
         document.getElementById("yearBtn").style.display = "inline-block";
         fireConfetti();
     } else {
-        let age = Math.floor((num - 250) / 100);
+        let age = Math.floor((num - 500) / 100);
         let birthYear = currentYear - age;
 
         if (birthYear < 1950 || birthYear > currentYear) {
