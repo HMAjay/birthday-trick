@@ -2,6 +2,10 @@ let step = 0;
 let mode = "birthday";
 const currentYear = new Date().getFullYear();
 
+// 🔹 Store birthday info
+let savedDay = null;
+let savedMonthName = null;
+
 const birthdaySteps = [
     "Think of your birth MONTH. Multiply it by 5.",
     "Now add 6.",
@@ -61,25 +65,45 @@ function reveal() {
     }
 
     if (mode === "birthday") {
-        let original = num - 165;
-        let month = Math.floor(original / 100);
-        let day = original % 100;
+    let original = num - 165;
+    let month = Math.floor(original / 100);
+    let day = original % 100;
 
-        const months = ["January","February","March","April","May","June",
-                        "July","August","September","October","November","December"];
+    const months = ["January","February","March","April","May","June",
+                    "July","August","September","October","November","December"];
 
-        document.getElementById("result").innerText =
-            `🎉 You were born on ${day} ${months[month-1]}!`;
+    // 🔥 Validate real date
+    let testDate = new Date(2024, month - 1, day); // leap year safe
 
-        document.getElementById("yearBtn").style.display = "inline-block";
+    if (month < 1 || month > 12 || testDate.getMonth() !== month - 1 || testDate.getDate() !== day) {
+        document.getElementById("result").innerHTML =
+            `Incorrect. Try again but with correct math please.`;
+        document.getElementById("homeBtn").style.display = "inline-block";
+        return;
     }
+
+    savedDay = day;
+    savedMonthName = months[month-1];
+
+    document.getElementById("result").innerText =
+        `🎉 You were born on ${day} ${savedMonthName}!`;
+
+    document.getElementById("yearBtn").style.display = "inline-block";
+}
+
     else {
         let age = Math.floor((num - currentYear) / 100);
         let birthYear = currentYear - age;
-
-        document.getElementById("result").innerText =
-            `🤯 And your birth year is ${birthYear}!`;
+        if(birthYear<1950){
+            document.getElementById("result").innerHTML=`Not correct? Try again but with correct math🤣`
+            document.getElementById("homeBtn").style.display = "inline-block";
+            return; // 
+        }
+         document.getElementById("result").innerHTML =
+        `🤯 You were born in ${birthYear}! <br><br> 
+         🎉 Your Date Of Birth is ${savedDay} ${savedMonthName} ${birthYear}!`;
     }
+
 
     document.getElementById("homeBtn").style.display = "inline-block";
 }
@@ -91,14 +115,11 @@ function startYearTrick() {
     document.getElementById("titleText").innerText = "🔮 Watch Me Guess Your Birth Year";
     document.getElementById("stepText").innerText = yearSteps[0];
 
-    // Reset UI like fresh start
     document.getElementById("inputArea").style.display = "none";
     document.getElementById("result").innerText = "";
     document.getElementById("finalNumber").value = "";
     document.getElementById("yearBtn").style.display = "none";
     document.getElementById("backBtn").style.display = "none";
-
-    // 🔥 IMPORTANT — hide restart until reveal happens
     document.getElementById("homeBtn").style.display = "none";
 }
 
