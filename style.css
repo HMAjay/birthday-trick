@@ -1,4 +1,3 @@
-/* 🌈 Animated Gradient Background */
 body {
     font-family: 'Segoe UI', sans-serif;
     background: linear-gradient(-45deg, #ffb347, #ffcc33, #ff8c00, #ffd700);
@@ -37,12 +36,10 @@ body {
     50% { transform: translateY(-8px); }
 }
 
-/* ✨ Title Glow */
 h2 {
     text-shadow: 0 0 10px #ffae00;
 }
 
-/* 🔘 Magic Buttons */
 button {
     margin: 6px 4px;
     padding: 10px 16px;
@@ -79,7 +76,6 @@ button:hover::after {
     left: 100%;
 }
 
-/* ⌨️ Inputs */
 input {
     padding: 10px;
     width: 85%;
@@ -97,7 +93,6 @@ input:focus {
     box-shadow: 0 0 10px #ffae00;
 }
 
-/* 🎉 Result Glow Pulse */
 #result {
     margin-top: 12px;
     font-weight: bold;
@@ -111,7 +106,6 @@ input:focus {
     50% { text-shadow: 0 0 18px #ff5e00; }
 }
 
-/* 🌟 Subtle sparkle effect */
 body::before {
     content: "";
     position: absolute;
