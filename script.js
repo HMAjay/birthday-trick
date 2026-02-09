@@ -18,8 +18,7 @@ const yearSteps = [
     "Think of your CURRENT AGE. Multiply it by 2.",
     "Now add 5.",
     "Multiply the result by 50.",
-    "Add the current year.",
-    "Finally, subtract 250.",
+    "Finally, add 250.",
     "Done! Enter the final number below."
 ];
 
@@ -69,7 +68,7 @@ function reveal() {
         document.getElementById("yearBtn").style.display = "inline-block";
         fireConfetti();
     } else {
-        let age = Math.floor((num - currentYear) / 100);
+        let age = Math.floor((num - 250) / 100);
         let birthYear = currentYear - age;
 
         if (birthYear < 1950 || birthYear > currentYear) {
