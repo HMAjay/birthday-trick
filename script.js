@@ -108,7 +108,7 @@ function startYearTrick() {
     mode = "year";
     step = 0;
 
-    document.getElementById("titleText").innerText = "🔮 Watch Me Guess Your Birth Year";
+    document.getElementById("titleText").innerText = "Watch Me Guess Your Birth Year";
     document.getElementById("stepText").innerText = yearSteps[0];
 
     document.getElementById("inputArea").style.display = "none";
@@ -121,7 +121,7 @@ function goHome() {
     step = 0;
     mode = "birthday";
 
-    document.getElementById("titleText").innerText = "🔮 Watch Me Guess Your Birthday";
+    document.getElementById("titleText").innerText = "Watch Me Guess Your Birthday";
     document.getElementById("stepText").innerText = birthdaySteps[0];
 
     document.getElementById("result").innerText = "";
@@ -140,7 +140,6 @@ function fireConfetti() {
         if (Date.now() < end) requestAnimationFrame(frame);
     })();
 }
-
 
 // 🔥 ENTER KEY SUBMIT
 document.getElementById("finalNumber").addEventListener("keydown", function(e) {
