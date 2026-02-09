@@ -91,11 +91,15 @@ function startYearTrick() {
     document.getElementById("titleText").innerText = "🔮 Watch Me Guess Your Birth Year";
     document.getElementById("stepText").innerText = yearSteps[0];
 
+    // Reset UI like fresh start
     document.getElementById("inputArea").style.display = "none";
     document.getElementById("result").innerText = "";
     document.getElementById("finalNumber").value = "";
     document.getElementById("yearBtn").style.display = "none";
     document.getElementById("backBtn").style.display = "none";
+
+    // 🔥 IMPORTANT — hide restart until reveal happens
+    document.getElementById("homeBtn").style.display = "none";
 }
 
 function goHome() {
