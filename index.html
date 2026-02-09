@@ -2,52 +2,7 @@
 <html>
 <head>
     <title>Birthday Reading Trick</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #141e30, #243b55);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .box {
-            background: rgba(255,255,255,0.1);
-            padding: 30px;
-            border-radius: 15px;
-            width: 350px;
-            text-align: center;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-        }
-
-        button {
-            margin: 8px 5px;
-            padding: 10px 15px;
-            border-radius: 8px;
-            border: none;
-            background: #00c6ff;
-            color: black;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        input {
-            margin-top: 10px;
-            padding: 8px;
-            width: 80%;
-            border-radius: 6px;
-            border: none;
-        }
-
-        #result {
-            margin-top: 15px;
-            font-weight: bold;
-            color: #00ffcc;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -64,134 +19,17 @@
     <div id="inputArea" style="display:none;">
         <p>Enter your final number:</p>
         <input type="number" id="finalNumber">
-        <button onclick="reveal()">Reveal Birthday</button>
+        <button onclick="reveal()">Reveal</button>
     </div>
 
     <h3 id="result"></h3>
     <button id="homeBtn" onclick="goHome()" style="display:none;">🏠 Restart</button>
 
     <button id="yearBtn" onclick="startYearTrick()" style="display:none;">
-    🔮 Guess My Birth Year
+        🔮 Guess My Birth Year
     </button>
-
 </div>
 
-<script>
-let step = 0;
-let mode = "birthday"; // birthday or year
-const currentYear = new Date().getFullYear();
-
-const birthdaySteps = [
-    "Think of your birth MONTH. Multiply it by 5.",
-    "Now add 6.",
-    "Multiply the result by 4.",
-    "Add 9.",
-    "Multiply by 5.",
-    "Now add the DAY you were born.",
-    "Done! Enter the final number below."
-];
-
-const yearSteps = [
-    "Think of your CURRENT AGE. Multiply it by 2.",
-    "Now add 5.",
-    "Multiply the result by 50.",
-    "Add the current year.",
-    "Finally, subtract 250.",
-    "Done! Enter the final number below."
-];
-
-function nextStep() {
-    const steps = mode === "birthday" ? birthdaySteps : yearSteps;
-
-    if (step < steps.length - 1) {
-        step++;
-        document.getElementById("stepText").innerText = steps[step];
-    }
-
-    if (step > 0) {
-        document.getElementById("backBtn").style.display = "inline-block";
-    }
-
-    if (step === steps.length - 1) {
-        document.getElementById("inputArea").style.display = "block";
-    }
-}
-
-function prevStep() {
-    if (step > 0) {
-        step--;
-        const steps = mode === "birthday" ? birthdaySteps : yearSteps;
-        document.getElementById("stepText").innerText = steps[step];
-    }
-
-    if (step === 0) {
-        document.getElementById("backBtn").style.display = "none";
-    }
-
-    document.getElementById("inputArea").style.display = "none";
-}
-
-function reveal() {
-    let num = Number(document.getElementById("finalNumber").value);
-
-    if (!num) {
-        document.getElementById("result").innerText = "Enter a number first!";
-        return;
-    }
-
-    if (mode === "birthday") {
-        let original = num - 165;
-        let month = Math.floor(original / 100);
-        let day = original % 100;
-
-        const months = ["January","February","March","April","May","June",
-                        "July","August","September","October","November","December"];
-
-        if (month < 1 || month > 12) {
-            document.getElementById("result").innerText = "Try again 😅";
-            return;
-        }
-
-        document.getElementById("result").innerText =
-            `🎉 You were born on ${day} ${months[month-1]}!`;
-
-        document.getElementById("yearBtn").style.display = "inline-block";
-    }
-
-    else if (mode === "year") {
-        let age = Math.floor((num - currentYear) / 100);
-        let birthYear = currentYear - age;
-
-        document.getElementById("result").innerText =
-            `🤯 And your birth year is ${birthYear}!`;
-    }
-
-    document.getElementById("homeBtn").style.display = "inline-block";
-}
-
-function startYearTrick() {
-    mode = "year";
-    step = 0;
-    document.getElementById("stepText").innerText = yearSteps[0];
-    document.getElementById("inputArea").style.display = "none";
-    document.getElementById("result").innerText = "";
-    document.getElementById("finalNumber").value = "";
-    document.getElementById("yearBtn").style.display = "none";
-}
-
-function goHome() {
-    mode = "birthday";
-    step = 0;
-    document.getElementById("stepText").innerText = birthdaySteps[0];
-    document.getElementById("inputArea").style.display = "none";
-    document.getElementById("result").innerText = "";
-    document.getElementById("finalNumber").value = "";
-    document.getElementById("homeBtn").style.display = "none";
-    document.getElementById("backBtn").style.display = "none";
-    document.getElementById("yearBtn").style.display = "none";
-}
-</script>
-
-
+<script src="script.js"></script>
 </body>
 </html>
