@@ -108,26 +108,29 @@ function startYearTrick() {
     mode = "year";
     step = 0;
 
-    document.getElementById("titleText").innerText = "Watch Me Guess Your Birth Year";
+    document.getElementById("titleText").innerText = "🔮 Watch Me Guess Your Birth Year";
     document.getElementById("stepText").innerText = yearSteps[0];
 
     document.getElementById("inputArea").style.display = "none";
     document.getElementById("result").innerText = "";
     document.getElementById("homeBtn").style.display = "none";
-    document.getElementById("finalNumber").value = ""; // clear
-}
+    document.getElementById("finalNumber").value = "";
 
+    document.getElementById("yearBtn").style.display = "none"; // 🔥 HIDE BUTTON
+}
 function goHome() {
     step = 0;
     mode = "birthday";
 
-    document.getElementById("titleText").innerText = "Watch Me Guess Your Birthday";
+    document.getElementById("titleText").innerText = "🔮 Watch Me Guess Your Birthday";
     document.getElementById("stepText").innerText = birthdaySteps[0];
 
     document.getElementById("result").innerText = "";
     document.getElementById("inputArea").style.display = "none";
     document.getElementById("homeBtn").style.display = "none";
-    document.getElementById("finalNumber").value = ""; // clear
+    document.getElementById("finalNumber").value = "";
+
+    document.getElementById("yearBtn").style.display = "inline-block"; // 🔥 SHOW AGAIN
 }
 
 function fireConfetti() {
