@@ -69,28 +69,45 @@
 
     <h3 id="result"></h3>
     <button id="homeBtn" onclick="goHome()" style="display:none;">🏠 Restart</button>
+
+    <button id="yearBtn" onclick="startYearTrick()" style="display:none;">
+    🔮 Guess My Birth Year
+    </button>
+
 </div>
 
 <script>
 let step = 0;
+let mode = "birthday"; // birthday or year
+const currentYear = new Date().getFullYear();
 
-const steps = [
+const birthdaySteps = [
     "Think of your birth MONTH. Multiply it by 5.",
     "Now add 6.",
     "Multiply the result by 4.",
     "Add 9.",
     "Multiply by 5.",
-    "Finally, add the DAY you were born.",
-    "Done! Now enter the final number below."
+    "Now add the DAY you were born.",
+    "Done! Enter the final number below."
+];
+
+const yearSteps = [
+    "Think of your CURRENT AGE. Multiply it by 2.",
+    "Now add 5.",
+    "Multiply the result by 50.",
+    "Add the current year.",
+    "Finally, subtract 250.",
+    "Done! Enter the final number below."
 ];
 
 function nextStep() {
+    const steps = mode === "birthday" ? birthdaySteps : yearSteps;
+
     if (step < steps.length - 1) {
         step++;
         document.getElementById("stepText").innerText = steps[step];
     }
 
-    // Show back button after first step
     if (step > 0) {
         document.getElementById("backBtn").style.display = "inline-block";
     }
@@ -103,10 +120,10 @@ function nextStep() {
 function prevStep() {
     if (step > 0) {
         step--;
+        const steps = mode === "birthday" ? birthdaySteps : yearSteps;
         document.getElementById("stepText").innerText = steps[step];
     }
 
-    // Hide back button if at first step
     if (step === 0) {
         document.getElementById("backBtn").style.display = "none";
     }
@@ -122,44 +139,59 @@ function reveal() {
         return;
     }
 
-    let original = num - 165;
-    let month = Math.floor(original / 100);
-    let day = original % 100;
+    if (mode === "birthday") {
+        let original = num - 165;
+        let month = Math.floor(original / 100);
+        let day = original % 100;
 
-    const months = ["January","February","March","April","May","June",
-                    "July","August","September","October","November","December"];
+        const months = ["January","February","March","April","May","June",
+                        "July","August","September","October","November","December"];
 
-    // Check month range
-    if (month < 1 || month > 12) {
-        document.getElementById("result").innerText = "Your math is weak 😅 Try again.";
-        return;
+        if (month < 1 || month > 12) {
+            document.getElementById("result").innerText = "Try again 😅";
+            return;
+        }
+
+        document.getElementById("result").innerText =
+            `🎉 You were born on ${day} ${months[month-1]}!`;
+
+        document.getElementById("yearBtn").style.display = "inline-block";
     }
 
-    // Check valid day for that month using JS Date
-    let testDate = new Date(2024, month - 1, day); // 2024 = leap year for Feb 29 safety
+    else if (mode === "year") {
+        let age = Math.floor((num - currentYear) / 100);
+        let birthYear = currentYear - age;
 
-    if (testDate.getMonth() !== month - 1 || testDate.getDate() !== day) {
-        document.getElementById("result").innerText = "Your math is weak 😅 Try again.";
-        return;
+        document.getElementById("result").innerText =
+            `🤯 And your birth year is ${birthYear}!`;
     }
-
-    document.getElementById("result").innerText =
-        `🎉 You were born on ${day} ${months[month-1]}!`;
 
     document.getElementById("homeBtn").style.display = "inline-block";
 }
 
+function startYearTrick() {
+    mode = "year";
+    step = 0;
+    document.getElementById("stepText").innerText = yearSteps[0];
+    document.getElementById("inputArea").style.display = "none";
+    document.getElementById("result").innerText = "";
+    document.getElementById("finalNumber").value = "";
+    document.getElementById("yearBtn").style.display = "none";
+}
 
 function goHome() {
+    mode = "birthday";
     step = 0;
-    document.getElementById("stepText").innerText = steps[0];
+    document.getElementById("stepText").innerText = birthdaySteps[0];
     document.getElementById("inputArea").style.display = "none";
     document.getElementById("result").innerText = "";
     document.getElementById("finalNumber").value = "";
     document.getElementById("homeBtn").style.display = "none";
     document.getElementById("backBtn").style.display = "none";
+    document.getElementById("yearBtn").style.display = "none";
 }
 </script>
+
 
 </body>
 </html>
