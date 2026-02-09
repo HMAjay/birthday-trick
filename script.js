@@ -1,7 +1,6 @@
 let step = 0;
 let mode = "birthday";
 const currentYear = new Date().getFullYear();
-
 let savedDay = null;
 let savedMonthName = null;
 
