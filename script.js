@@ -94,11 +94,6 @@ function reveal() {
     else {
         let age = Math.floor((num - currentYear) / 100);
         let birthYear = currentYear - age;
-        if(birthYear<1950){
-            document.getElementById("result").innerHTML=`Not correct? Try again but with correct math🤣`
-            document.getElementById("homeBtn").style.display = "inline-block";
-            return; // 
-        }
          document.getElementById("result").innerHTML =
         `🤯 You were born in ${birthYear}! <br><br> 
          🎉 Your Date Of Birth is ${savedDay} ${savedMonthName} ${birthYear}!`;
