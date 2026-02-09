@@ -1,50 +1,129 @@
+/* 🌈 Animated Gradient Background */
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #141e30, #243b55);
-    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(-45deg, #ffb347, #ffcc33, #ff8c00, #ffd700);
+    background-size: 400% 400%;
+    animation: gradientMove 12s ease infinite;
+    color: #2b1a00;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    overflow: hidden;
 }
 
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ✨ Floating Glass Card */
 .box {
-    background: rgba(255,255,255,0.1);
-    padding: 30px;
-    border-radius: 15px;
-    width: 350px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px);
+    padding: 35px;
+    border-radius: 20px;
+    width: 360px;
     text-align: center;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    box-shadow: 0 15px 40px rgba(255, 140, 0, 0.6);
+    animation: floatCard 5s ease-in-out infinite;
+    position: relative;
 }
 
+@keyframes floatCard {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* ✨ Title Glow */
+h2 {
+    text-shadow: 0 0 10px #ffae00;
+}
+
+/* 🔘 Magic Buttons */
 button {
-    margin: 8px 5px;
-    padding: 10px 15px;
-    border-radius: 8px;
+    margin: 6px 4px;
+    padding: 10px 16px;
+    border-radius: 10px;
     border: none;
-    background: #00c6ff;
-    color: black;
+    background: linear-gradient(45deg, #ffd700, #ff8c00);
+    color: #3b2200;
     font-weight: bold;
     cursor: pointer;
-    transition: transform 0.1s ease;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Button glow */
 button:hover {
-    transform: scale(1.05);
+    transform: scale(1.08);
+    box-shadow: 0 0 15px #ffae00;
 }
 
+/* ✨ Shine sweep animation */
+button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+    transition: 0.6s;
+}
+
+button:hover::after {
+    left: 100%;
+}
+
+/* ⌨️ Inputs */
 input {
-    margin-top: 10px;
-    padding: 8px;
-    width: 80%;
-    border-radius: 6px;
+    padding: 10px;
+    width: 85%;
+    border-radius: 8px;
     border: none;
+    background: #fff6d5;
+    color: #3b2200;
+    font-weight: bold;
+    box-shadow: inset 0 0 8px rgba(255, 140, 0, 0.5);
+    transition: 0.2s;
 }
 
+input:focus {
+    outline: none;
+    box-shadow: 0 0 10px #ffae00;
+}
+
+/* 🎉 Result Glow Pulse */
 #result {
-    margin-top: 15px;
+    margin-top: 12px;
     font-weight: bold;
-    color: #00ffcc;
-    min-height: 24px;
+    color: Black;
+    text-shadow: 0 0 8px Yellow;
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%,100% { text-shadow: 0 0 6px #ff5e00; }
+    50% { text-shadow: 0 0 18px #ff5e00; }
+}
+
+/* 🌟 Subtle sparkle effect */
+body::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background-image: radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: sparkleMove 20s linear infinite;
+    opacity: 0.2;
+}
+
+@keyframes sparkleMove {
+    from { transform: translate(0,0); }
+    to { transform: translate(-200px,-200px); }
 }
