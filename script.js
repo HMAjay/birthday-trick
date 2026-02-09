@@ -87,17 +87,24 @@ function reveal() {
 function startYearTrick() {
     mode = "year";
     step = 0;
+
+    // 🔹 Change header here
+    document.getElementById("titleText").innerText = "🔮 Watch Me Guess Your Birth Year";
+
     document.getElementById("stepText").innerText = yearSteps[0];
     document.getElementById("inputArea").style.display = "none";
     document.getElementById("result").innerText = "";
     document.getElementById("finalNumber").value = "";
     document.getElementById("yearBtn").style.display = "none";
+    document.getElementById("backBtn").style.display = "none";
 }
+
 
 function goHome() {
     step = 0;
 
     if (mode === "birthday") {
+        document.getElementById("titleText").innerText = "🔮 Watch Me Guess Your Birthday";
         document.getElementById("stepText").innerText = birthdaySteps[0];
         document.getElementById("yearBtn").style.display = "none";
     } else {
