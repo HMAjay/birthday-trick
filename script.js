@@ -12,7 +12,7 @@ const birthdaySteps = [
     "Multiply the result by 4.",
     "Add 9.",
     "Multiply by 5.",
-    "Now add the DAY you were born.",
+    "Finally, now add the DAY you were born.",
     "Done! Enter the final number below."
 ];
 
